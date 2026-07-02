@@ -35,3 +35,4 @@ Follow these steps to set up and run the script locally.
 ```bash
 git clone [https://github.com/your-username/hn-daily-digest.git](https://github.com/your-username/hn-daily-digest.git)
 cd hn-daily-digest
+python main.py
