@@ -28,7 +28,7 @@ If you plan to use Gmail (which the script is configured for by default), you wi
 
 2. **Install the required dependencies** using pip:
 ```bash
-   pip install requests beautifulsoup4 python-dotenv
+   pip install -r requirements.txt
 ```
 3. **Configure Environment Variables:**
 Create a file named `.env` in the root directory of the project and add your configuration details:
