@@ -1,38 +1,74 @@
-# HN Daily Digest Automator
+# Hacker News Daily Scraper & Emailer
 
-A lightweight, automated Python script that scrapes the top stories from [Hacker News](https://news.ycombinator.com/), formats them into a clean HTML digest, and dispatches them directly to your inbox via SMTP.
-
-This repository serves as a practical demonstration of core backend utilities: web scraping, HTML formatting, and secure communication pipelines.
+A lightweight Python script that scrapes the top stories from Hacker News [Hacker News](https://news.ycombinator.com/) and automatically delivers them to your inbox as a clean, formatted HTML email. 
 
 ---
 
 ## 🚀 Features
 
-* **Web Scraping:** Parses the front page of Hacker News efficiently using `BeautifulSoup4`.
-* **HTML Content Pipeline:** Dynamically generates a clean, readable HTML email body with the day's headlines.
-* **Secure Credential Injection:** Decouples secrets from source code by pulling credentials strictly from environment variables via `python-dotenv`.
-* **Robust Delivery:** Leverages Python's native `smtplib` combined with TLS encryption for secure email transport.
-* **Single-File Execution:** Built with an `if __name__ == "__main__":` entry point, making it highly portable and modular.
+* **Web Scraping:** Parses the front page of Hacker News using `BeautifulSoup4`.
+* **HTML Emails:** Formats the scraped stories into a readable list before sending.
+* **Secure Credentials:** Utilizes `python-dotenv` to keep your email credentials safe and separate from the source code.
+* **Timestamped Subjects:** Automatically appends the current date to the email subject line.
 
 ---
 
-## 🛠️ Tech Stack & Dependencies
+## 🛠️ Prerequisites
 
-* **Language:** Python 3.x
-* **Libraries:**
-  * `requests` - For handling HTTP GET requests.
-  * `beautifulsoup4` - For parsing and extracting HTML elements.
-  * `python-dotenv` - For loading environment configurations.
-  * `smtplib` & `email` - For composing and transmitting multi-part MIME emails.
+Make sure you have Python 3.x installed on your system. 
+
+If you plan to use Gmail (which the script is configured for by default), you will need to generate an **App Password** rather than using your regular login password. 
+* Go to your Google Account -> Security -> 2-Step Verification -> App passwords.
 
 ---
 
-## ⚙️ Installation & Configuration
+## 📦 Installation & Setup
 
-Follow these steps to set up and run the script locally.
+1. **Clone or download this repository** to your local machine.
 
-### 1. Clone the Repository
+2. **Install the required dependencies** using pip:
 ```bash
-git clone [https://github.com/your-username/hn-daily-digest.git](https://github.com/your-username/hn-daily-digest.git)
-cd hn-daily-digest
+   pip install requests beautifulsoup4 python-dotenv
+```
+3. **Configure Environment Variables:**
+Create a file named `.env` in the root directory of the project and add your configuration details:
+```env
+EMAIL_FROM=your_sender_email@gmail.com
+EMAIL_TO=your_recipient_email@example.com
+EMAIL_PASS=your_gmail_app_password
+
+```
+
+
+
+---
+
+## ⚙️ How It Works
+
+* `extract_news(url)`: Sends a request to Hacker News, parses the HTML structure to extract story titles, and bundles them into an HTML string.
+* `send_email(content)`: Fetches configuration details from the `.env` file, establishes a secure TLS connection with the Gmail SMTP server, and shoots the structured email over to the designated recipient.
+
+---
+
+## 🏃‍♂️ Running the Script
+
+Execute the script from your terminal:
+
+```bash
 python main.py
+
+```
+
+*Note: Replace `main.py` with whatever you named your Python file.*
+
+---
+
+## 🔧 Customization
+
+If you are using an email provider other than Gmail, open the script and update the SMTP settings in the `send_email` function:
+
+```python
+# For example, Outlook/Hotmail configuration:
+server = smtplib.SMTP('smtp-mail.outlook.com', 587)
+
+```
